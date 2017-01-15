@@ -136,7 +136,7 @@ source $HOME/usr/contrib/autojump/bin/autojump.bash
 if $(echo $- | grep -q "i"); then
     export BASE16_SHELL="$HOME/usr/contrib/base16-shell"
     [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-    _base16 "/home/jason/usr/contrib/base16-shell/scripts/base16-solarized-dark.sh" solarized-dark
+    _base16 "$HOME/usr/contrib/base16-shell/scripts/base16-solarized-dark.sh" solarized-dark
 fi
 
 # ========================================================================

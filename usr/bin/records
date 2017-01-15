@@ -1,0 +1,103 @@
+#!/usr/bin/env python
+"""
+records: Simple screen recording script.
+"""
+
+import subprocess
+import sys
+from collections import namedtuple
+from subprocess import PIPE
+
+
+WindowInfo = namedtuple('WindowInfo', 'window_id x y width height')
+
+
+def get_window_info_from_mouse_cursor():
+    # Mapping of string prefix to validation function.  Chomps the string
+    # prefix from the line and calls the validation function on the remaining
+    # string.
+    expected_line_prefixes = [
+        ('xwininfo: Window id:', str),
+        ('Absolute upper-left X:', int),
+        ('Absolute upper-left Y:', int),
+        ('Width:', int),
+        ('Height:', int),
+    ]
+    retval = []
+
+    print ' == Select the window you would like to start recording ==\n'
+    output = subprocess.check_output(['xwininfo'], stderr=PIPE)
+    output = output.split('\n')
+
+    while expected_line_prefixes:
+        prefix, validator = expected_line_prefixes.pop(0)
+
+        while output:
+            line = output.pop(0).strip()
+            if line.startswith(prefix):
+                retval.append(validator(line[len(prefix) + 1:].strip()))
+                break
+
+    if expected_line_prefixes:
+        raise ValueError('Could not parse xwininfo output.')
+
+    return WindowInfo(*retval)
+
+
+def record(wininfo, output, record_audio=False):
+    args = [
+        'ffmpeg',
+        '-video_size',
+        '%dx%d' % (wininfo.width, wininfo.height),
+        '-framerate',
+        '25',   # TODO: framerate should be configurable
+        '-f',
+        'x11grab',
+        '-thread_queue_size',
+        '1024',
+        '-i',
+        ':0.0+%d,%d' % (wininfo.x, wininfo.y),
+    ]
+    if record_audio:
+        args += [
+            '-f',
+            'alsa',
+            '-thread_queue_size',
+            '65535',
+            '-ac',
+            '2',
+            '-i',
+            'hw:0',
+        ]
+
+    args += [
+        '-b:v',
+        '1024k',    # TODO: bitrate should be configurable.  default should be
+                    # more intelligent based on WxH.
+    ]
+
+    if record_audio:
+        args += [
+            '-strict',
+            '-2',
+        ]
+
+    args.append(output)
+
+    return subprocess.call(args)
+
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print 'usage: %s [-a] <output>' % (sys.argv[0], )
+        sys.exit(1)
+
+    record_audio = False
+    output_filename = sys.argv[1]
+    if sys.argv[1] == '-a':
+        output_filename = sys.argv[2]
+        record_audio = True
+
+    wininfo = get_window_info_from_mouse_cursor()
+    print 'Capturing window:', wininfo.window_id
+    sys.exit(record(wininfo, output_filename, record_audio))

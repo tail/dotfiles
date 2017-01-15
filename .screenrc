@@ -1,0 +1,47 @@
+# From http://www.mattcutts.com/blog/screen-power-tips-screenrc/
+escape ^]a
+defescape ^]a
+#autodetach on
+#startup_message off
+#defscrollback 30000
+#termcapinfo xterm ti@:te@
+
+
+#caption always "%{kB}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{kB}%?%+Lw%?r"
+#hardstatus alwayslastline "%{BW}%16=%l %{BW}%50=%d/%m/%Y %{BW}%80=%c%="
+#hardstatus alwayslastline
+#hardstatus string '%{gk}[ %{G}%H %{g}][%= %{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= kw}%?%+Lw%?%?%= %{g}][%{Y}%l%{g}]%{=b C}[ %m/%d %c ]%{W}'
+
+
+startup_message off
+chdir
+#chdir screen
+#unsetenv SSH_AUTH_SOCK
+unsetenv DISPLAY
+termcap xter* :ks@:is=\E>\E[?7;8h\E[1;65r\E[65;1H:
+bindkey -k kD stuff \177
+#escape \025a
+#defescape \025a
+vbell off
+defscrollback 9999
+caption string "%3n %t %c"
+caption always
+bell_msg ""
+hardcopy_append on
+hardcopydir ~/screen
+compacthist off
+#deflog on
+#logfile flush 60
+msgminwait 0
+msgwait 2
+nonblock on
+shell -$SHELL
+
+# 256 colors in screen (http://www.frexx.de/xterm-256-notes/)
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# erase background with current bg color
+defbce "on"

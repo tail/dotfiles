@@ -1,0 +1,9 @@
+.VimballRecord
+.netrwhist
+*.sw[po]
+*.pyc
+tags
+.DS_Store
+*tmp*
+.vim/neobundle
+.config/nvim/plugged

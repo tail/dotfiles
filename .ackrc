@@ -1,0 +1,15 @@
+--type-set=puppet=.pp
+--type-set=pm=.pm
+--type-set=json=.json
+
+--ignore-dir=build
+--ignore-dir=uploads
+--ignore-dir=test.results
+--ignore-dir=js/dist
+--ignore-dir=js/src/lib/ace
+--ignore-dir=.ropeproject
+--ignore-dir=tmp
+--ignore-dir=.eggs
+--ignore-dir=.tmp
+
+--ignore-file=is:tags

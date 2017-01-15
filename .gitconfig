@@ -1,0 +1,30 @@
+[alias]
+    co = checkout
+    realpush = !git stash && git pull && git push && git stash pop
+
+[user]
+    name = Jason Yan
+    email = tailofthesun@gmail.com
+
+[color]
+    branch = auto
+    interactive = auto
+    diff = auto
+    status = auto
+
+[core]
+    pager = 'less'
+
+[branch "master"]
+    rebase = true
+
+[push]
+    default = tracking
+
+[sendemail]
+    from = Jason Yan <tailofthesun@gmail.com>
+    smtpserver = smtp.gmail.com
+    smtpuser = tailofthesun@gmail.com
+    smtpencryption = tls
+    chainreplyto = false
+    smtpserverport = 587

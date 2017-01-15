@@ -1,0 +1,10 @@
+map h 5<Left>
+map j 5<Down>
+map k 5<Up>
+map l 5<Right>
+
+map d <C-d>
+map u <C-u>
+
+map x :tabclose<CR>
+map X :undo<CR>

@@ -1,0 +1,65 @@
+map h 5<Left>
+map j 5<Down>
+map k 5<Up>
+map l 5<Right>
+
+map d <C-d>
+map u <C-u>
+
+map -b x :tabclose<CR>
+map -b X :undo<CR>
+map -b J :tabnext<CR>
+map -b K :tabprev<CR>
+
+" use home row letters for hints instead of numbers
+set hintkeys='asdfghjkl'
+
+" f'rom http://florian.schroffworld.com/files/pentadactylrc.local.txt
+group -description 'Google normal/visial mode' -locations=mail.google.com,www.google.com/reader,plus.google.com google
+nnoremap -group=google C <pass-next-key><Esc>
+nnoremap -group=google gi <Pass>
+nnoremap -group=google gs <Pass>
+nnoremap -group=google gt <Pass>
+nnoremap -group=google gd <Pass>
+nnoremap -group=google gc <Pass>
+nnoremap -group=google gb <Pass>
+nnoremap -group=google gk <Pass>
+nnoremap -group=google gl <Pass>
+nnoremap -group=google T <Pass>
+nnoremap -group=google x <Pass>
+nnoremap -group=google s <Pass>
+nnoremap -group=google e <Pass>
+nnoremap -group=google m <Pass>
+nnoremap -group=google ! <Pass>
+nnoremap -group=google # <Pass>
+nnoremap -group=google * <Pass>
+nnoremap -group=google r <Pass>
+nnoremap -group=google a <Pass>
+nnoremap -group=google v <Pass>
+nnoremap -group=google N <Pass>
+nnoremap -group=google [ <Pass>
+nnoremap -group=google ] <Pass>
+nnoremap -group=google { <Pass>
+nnoremap -group=google } <Pass>
+nnoremap -group=google z <Pass>
+nnoremap -group=google . <Pass>
+nnoremap -group=google I <Pass>
+nnoremap -group=google U <Pass>
+nnoremap -group=google = <Pass>
+nnoremap -group=google \- <Pass>
+nnoremap -group=google ~ <Pass>
+nnoremap -group=google g <Pass>
+nnoremap -group=google i <Pass>
+nnoremap -group=google a <Pass>
+nnoremap -group=google c <Pass>
+" nnoremap -group=google / <Pass>
+nnoremap -group=google ? <Pass>
+nnoremap -group=google l <Pass>
+nnoremap -group=google u <Pass>
+nnoremap -group=google j <Pass>
+nnoremap -group=google k <Pass>
+nnoremap -group=google o <Pass>
+nnoremap -group=google n <Pass>
+nnoremap -group=google p <Pass>
+nnoremap -group=google q <Pass>
+nnoremap -group=google ` <Pass>

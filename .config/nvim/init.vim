@@ -11,8 +11,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 Plug 'autowitch/hive.vim'
 Plug 'benekastah/neomake'
-Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
-Plug 'Valloric/ListToggle'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -20,6 +18,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'keith/swift.vim'
 Plug 'klen/python-mode'
 Plug 'majutsushi/tagbar'
@@ -28,13 +27,17 @@ Plug 'mhinz/vim-grepper'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
+Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
 Plug 'smerrill/vcl-vim-plugin'
 Plug 'steelsojka/deoplete-flow'
 Plug 'szw/vim-ctrlspace'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'Valloric/ListToggle'
 " TODO: Hard-coding to SHA right before PR 911.
 " Something with ctrlspace integration and buffers makes it so that buffers
 " always show on the left and tabs on the right.
@@ -90,6 +93,8 @@ autocmd BufNewFile,BufRead *.hql set filetype=hive
 
 " ===== Keybindings ===== {{{
 set pastetoggle=<F2>
+map <F3> :NERDTreeTabsToggle<CR>
+map! <F3> <ESC>:NERDTreeTabsToggle<CR>a
 map <F4> :TagbarToggle<CR><C-w>l
 map! <F4> <ESC>:TagbarToggle<CR><C-w>l
 map <F5> oimport ipdb;ipdb.set_trace()<ESC>

@@ -279,7 +279,7 @@ elif [[ `hostname -d 2> /dev/null` == "ec2.internal" ]]; then
 fi
 
 
-PS1="$PS1\n`if [[ $UID = 0 ]]; then echo '#'; else echo '\$'; fi` "
+PS1="$PS1"$'\n'"`if [[ $UID = 0 ]]; then echo '#'; else echo '\$'; fi` "
 
 export PROMPT_COMMAND="echo -n \[\$(date +%H:%M:%S)\]"
 

@@ -160,7 +160,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 
 " ===== neomake ===== {{{
-if exists(":Neomake")
+if &loadplugins
     autocmd! BufReadPost * Neomake
     autocmd! BufWritePost * Neomake
 endif

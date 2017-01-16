@@ -19,7 +19,6 @@ echo "Symlinking remaining paths..."
 SYM_PATHS="
     .dstat \
     .python \
-    .ssh/config \
     .tmux \
     .vim \
     usr/bin \

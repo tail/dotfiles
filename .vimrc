@@ -160,8 +160,10 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 
 " ===== neomake ===== {{{
-autocmd! BufReadPost * Neomake
-autocmd! BufWritePost * Neomake
+if exists(":Neomake")
+    autocmd! BufReadPost * Neomake
+    autocmd! BufWritePost * Neomake
+endif
 let g:neomake_javascript_enabled_makers = ['eslint']
 " }}}
 

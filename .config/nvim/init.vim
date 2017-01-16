@@ -10,7 +10,6 @@ endfunction
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'autowitch/hive.vim'
-Plug 'benekastah/neomake'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -26,6 +25,7 @@ Plug 'maksimr/vim-jsbeautify'
 Plug 'mhinz/vim-grepper'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
+Plug 'neomake/neomake'
 Plug 'pangloss/vim-javascript'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
@@ -110,6 +110,7 @@ map <C-l> <C-w>l:nohlsearch<CR>:redraw!<CR>:nohlsearch<CR>
 
 nmap <leader>x <Plug>CommentaryLine
 xmap <leader>x <Plug>Commentary
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 " TODO: re-enable if using ctrlspace instead of ctrlp.
 " nnoremap <silent><C-p> :CtrlSpace O<CR>
 

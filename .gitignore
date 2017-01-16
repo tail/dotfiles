@@ -5,5 +5,5 @@
 tags
 .DS_Store
 *tmp*
-.vim/neobundle
+.vim/plugged
 .config/nvim/plugged

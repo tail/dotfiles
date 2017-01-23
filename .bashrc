@@ -56,7 +56,7 @@ alias dstat='dstat -t -c -l -d -Dsdc -r --postgres-conn'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 
 # Default to nvim if available.
-if [[ -x `which nvim` ]]; then
+if [[ -x "$(command -v nvim)" ]]; then
     alias vim=nvim
 fi
 
@@ -153,7 +153,7 @@ export HISTCONTROL='ignoreboth:erasedups'
 # dircolors
 # ========================================================================
 
-if [ -x "`which dircolors`" ]; then
+if [ -x "$(command -v dircolors)" ]; then
     eval `dircolors $HOME/usr/contrib/dircolors-solarized/dircolors.256dark`
 fi
 
@@ -213,7 +213,7 @@ fi
 # ========================================================================
 
 # Color definitions
-if [[ $- == *i* && -x `which tput` ]]; then
+if [[ $- == *i* && -x "$(command -v tput)" ]]; then
     BLACK=$(tput setaf 0)
     RED=$(tput setaf 1)
     GREEN=$(tput setaf 2)

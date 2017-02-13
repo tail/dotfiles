@@ -59,7 +59,7 @@ call plug#end()
 " ===== Theme ===== {{{
 let base16colorspace=256
 set background=dark
-colorscheme base16-solarized-dark
+silent! colorscheme base16-solarized-dark
 
 " Override some defaults which I don't like.
 hi Search ctermfg=21 guifg=#ffffff

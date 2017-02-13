@@ -9,6 +9,7 @@ DIRECTORY="$( cd "$( dirname "$0" )" && pwd )"
 echo "Symlinking root-level dotfiles..."
 
 find -L $DIRECTORY -maxdepth 1 -type f -name ".*" \
+    -and -not -name ".dockerignore" \
     -and -not -name ".gitignore" \
     -and -not -name "*.swp" \
     -print0 \

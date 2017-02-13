@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-[![Docker Automated build](https://img.shields.io/docker/automated/tail/dotfiles.svg)]()
+[![Docker Automated build](https://img.shields.io/docker/automated/tail/dotfiles.svg)](https://hub.docker.com/r/tail/dotfiles/)
 
 usage
 -----

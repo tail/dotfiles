@@ -17,11 +17,13 @@ Plug 'derekwyatt/vim-scala'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'keith/swift.vim'
 Plug 'klen/python-mode'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
+Plug 'mhartington/nvim-typescript'
 Plug 'mhinz/vim-grepper'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
@@ -178,6 +180,9 @@ let g:tern#filetypes = [
 autocmd! BufReadPost * Neomake
 autocmd! BufWritePost * Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
+
+let s:tslint_path = system('PATH=$(npm bin):$PATH && which tslint')
+let b:neomake_typescript_tslint_exe = substitute(s:tslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 " }}}
 
 

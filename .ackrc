@@ -1,6 +1,7 @@
 --type-set=puppet=.pp
 --type-set=pm=.pm
 --type-set=json=.json
+--type-set=typescript=.ts
 
 --ignore-dir=build
 --ignore-dir=uploads

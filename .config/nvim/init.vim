@@ -27,7 +27,6 @@ Plug 'mhartington/nvim-typescript'
 Plug 'mhinz/vim-grepper'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
-Plug 'neomake/neomake'
 Plug 'pangloss/vim-javascript'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
@@ -51,6 +50,7 @@ Plug 'Valloric/ListToggle'
 Plug 'vim-airline/vim-airline', { 'commit': 'e7de5f451a26eb2138d710e59a3e7b95a848a901' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
+Plug 'w0rp/ale'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-go'
 
@@ -140,6 +140,11 @@ command! -bang -nargs=* WQ wq<bang> <args>
 " }}}
 
 
+" ===== ale ===== {{{
+let g:ale_lint_on_text_changed = 'never'
+" }}}
+
+
 " ===== ctrlp ===== {{{
 let g:ctrlp_custom_ignore = {
     \ 'dir': '\v(\/node_modules|\/vendor|\.git|\.hg|\.svn|\.egg|\.egg-info$)',
@@ -173,16 +178,6 @@ endif
 let g:tern#filetypes = [
                 \ 'jsx',
                 \ ]
-" }}}
-
-
-" ===== neomake ===== {{{
-autocmd! BufReadPost * Neomake
-autocmd! BufWritePost * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-
-let s:tslint_path = system('PATH=$(npm bin):$PATH && which tslint')
-let b:neomake_typescript_tslint_exe = substitute(s:tslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 " }}}
 
 

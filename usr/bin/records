@@ -12,7 +12,7 @@ from subprocess import PIPE
 WindowInfo = namedtuple('WindowInfo', 'window_id x y width height')
 
 
-def get_window_info_from_mouse_cursor():
+def get_window_info_from_mouse_cursor(root=False):
     # Mapping of string prefix to validation function.  Chomps the string
     # prefix from the line and calls the validation function on the remaining
     # string.
@@ -25,10 +25,13 @@ def get_window_info_from_mouse_cursor():
     ]
     retval = []
 
-    print ' == Select the window you would like to start recording ==\n'
-    output = subprocess.check_output(['xwininfo'], stderr=PIPE)
-    output = output.split('\n')
+    if root:
+        output = subprocess.check_output(['xwininfo', '-root'], stderr=PIPE)
+    else:
+        print ' == Select the window you would like to start recording ==\n'
+        output = subprocess.check_output(['xwininfo'], stderr=PIPE)
 
+    output = output.split('\n')
     while expected_line_prefixes:
         prefix, validator = expected_line_prefixes.pop(0)
 
@@ -89,15 +92,21 @@ def record(wininfo, output, record_audio=False):
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print 'usage: %s [-a] <output>' % (sys.argv[0], )
+        print 'usage: %s [-a] [-f] <output>' % (sys.argv[0], )
         sys.exit(1)
 
     record_audio = False
+    record_fullscreen = False
     output_filename = sys.argv[1]
+
+    # TODO: Use a real argument parser.
     if sys.argv[1] == '-a':
         output_filename = sys.argv[2]
         record_audio = True
+    elif sys.argv[1] == '-f':
+        output_filename = sys.argv[2]
+        record_fullscreen = True
 
-    wininfo = get_window_info_from_mouse_cursor()
+    wininfo = get_window_info_from_mouse_cursor(root=record_fullscreen)
     print 'Capturing window:', wininfo.window_id
     sys.exit(record(wininfo, output_filename, record_audio))

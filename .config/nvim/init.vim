@@ -39,15 +39,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
-" TODO: Hard-coding to SHA right before PR 911.
-" Something with ctrlspace integration and buffers makes it so that buffers
-" always show on the left and tabs on the right.
-" Culprit:
-"   https://github.com/vim-airline/vim-airline/pull/911
-" Relevant reading:
-"   https://github.com/vim-airline/vim-airline/issues/639
-"   https://github.com/vim-airline/vim-airline/issues/1043
-Plug 'vim-airline/vim-airline', { 'commit': 'e7de5f451a26eb2138d710e59a3e7b95a848a901' }
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 Plug 'w0rp/ale'
@@ -195,7 +187,9 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
 let g:airline#extensions#tabline#enabled = 1
 " TODO: Tagbar is REALLY slow for large files.
+let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 " }}}
 
 

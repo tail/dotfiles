@@ -327,6 +327,10 @@ if [ -d $HOME/.virtualenvs/sandbox/bin ]; then
     PATH=$PATH:$HOME/.virtualenvs/sandbox/bin
 fi
 
+if [ -d $HOME/.virtualenvs/sandbox3/bin ]; then
+    PATH=$PATH:$HOME/.virtualenvs/sandbox3/bin
+fi
+
 # ========================================================================
 # ~fin!
 # ========================================================================

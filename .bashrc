@@ -150,6 +150,15 @@ export LESS=-Ri
 export HISTCONTROL='ignoreboth:erasedups'
 
 # ========================================================================
+# curl
+# ========================================================================
+
+# HACK: linuxbrew version of curl doesn't have certs?
+if [[ $(which curl) == "$HOME/.linuxbrew/bin/curl" ]]; then
+    export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+fi
+
+# ========================================================================
 # dircolors
 # ========================================================================
 

@@ -199,7 +199,7 @@ if executable("ag")
 endif
 
 let g:CtrlSpaceSetDefaultMapping = 0
-nnoremap <NUL> :CtrlSpace a<CR>
+nnoremap <C-space> :CtrlSpace a<CR>
 " }}}
 
 

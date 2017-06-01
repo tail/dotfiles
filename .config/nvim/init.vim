@@ -12,13 +12,13 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'autowitch/hive.vim'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'chriskempson/base16-vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'derekwyatt/vim-scala'
 Plug 'elzr/vim-json'
 Plug 'fatih/vim-go'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'junegunn/fzf'
 Plug 'keith/swift.vim'
 Plug 'klen/python-mode'
 Plug 'majutsushi/tagbar'
@@ -105,8 +105,6 @@ map <C-l> <C-w>l:nohlsearch<CR>:redraw!<CR>:nohlsearch<CR>
 nmap <leader>x <Plug>CommentaryLine
 xmap <leader>x <Plug>Commentary
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" TODO: re-enable if using ctrlspace instead of ctrlp.
-" nnoremap <silent><C-p> :CtrlSpace O<CR>
 
 " Search for selected text, forwards or backwards.
 " From: http://vim.wikia.com/wiki/Search_for_visually_selected_text
@@ -137,17 +135,6 @@ let g:ale_lint_on_text_changed = 'never'
 " }}}
 
 
-" ===== ctrlp ===== {{{
-let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v(\/node_modules|\/vendor|\.git|\.hg|\.svn|\.egg|\.egg-info$)',
-    \ 'file': '\v(\.sw[a-z]\|\.py[co]|\.egg|\.class)$',
-    \ }
-if executable("ag")
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-" }}}
-
-
 " ===== deoplete ===== {{{
 let g:deoplete#enable_at_startup = 1
 " }}}
@@ -170,6 +157,11 @@ endif
 let g:tern#filetypes = [
                 \ 'jsx',
                 \ ]
+" }}}
+
+
+" ===== fzf ===== {{{
+map <C-p> :FZF<CR>
 " }}}
 
 

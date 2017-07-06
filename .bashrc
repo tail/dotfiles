@@ -105,7 +105,7 @@ function scplimit() {
 # pyfind()
 #   find importable Python module path.
 #-------------------------------------------------------------------------
-function pyfind() { x=`python -c "import $1; print $1.__file__" | sed 's/\.pyc$/\.py/'`; if [ $? -ne 0 ]; then exit $?; fi; grep -q "__init__.py$"<<<$x && echo `dirname $x` || echo $x; }
+function pyfind() { x=`python -c "import $1; print($1.__file__)" | sed 's/\.pyc$/\.py/'`; if [ $? -ne 0 ]; then exit $?; fi; grep -q "__init__.py$"<<<$x && echo `dirname $x` || echo $x; }
 
 #-------------------------------------------------------------------------
 # pycd()

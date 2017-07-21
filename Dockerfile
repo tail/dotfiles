@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
     whois \
  && add-apt-repository ppa:neovim-ppa/unstable \
  && apt-get update \
- && apt-get install neovim \
+ && apt-get install -y neovim \
  && easy_install pip \
  && pip install neovim \
  && pip3 install neovim \

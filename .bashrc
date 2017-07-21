@@ -262,7 +262,7 @@ fi
 COLOR_INFO="${GREEN_BG}${BRIGHT}${WHITE}"
 
 function jobcount {
-    count=$(( $(jobs | wc -l) ))
+    count=$(( $(jobs | wc -l) - 1 ))
     if [[ $count != 0 ]]; then
         echo -n "($count)"
     fi
@@ -290,7 +290,7 @@ fi
 
 PS1="$PS1"$'\n'"`if [[ $UID = 0 ]]; then echo '#'; else echo '\$'; fi` "
 
-export PROMPT_COMMAND="echo -n \[\$(date +%H:%M:%S)\]"
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} echo -n \[\$(date +%H:%M:%S)\]"
 
 # Support xterm titles.
 case $TERM in

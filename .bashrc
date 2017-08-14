@@ -268,11 +268,26 @@ function jobcount {
     fi
 }
 
+function virtualenv_info() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        venv="${VIRTUAL_ENV##*/}"
+    else
+        venv=''
+    fi
+    [[ -n "$venv" ]] && echo -n "(venv:$venv) "
+}
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+PS1="[\$(date +%H:%M:%S)] "
+
+PS1="$PS1\$(virtualenv_info)"
+
 # username color conditional (root or regular user)
-PS1=`if [[ $UID = 0 ]]; then echo $RED; else echo $CYAN; fi`
+PS1="${PS1}$(if [[ $UID = 0 ]]; then echo $RED; else echo $CYAN; fi)"
 
 # username/host and path
-PS1="$PS1 \u@\h:\[$BLUE\]\w\[$NORMAL\]\$(jobcount)"
+PS1="$PS1\u@\h:\[$BLUE\]\w\[$NORMAL\]\$(jobcount)"
 
 # smiley
 PS1="$PS1\[\`if [[ \$? != \"0\" ]]; then echo '$RED :($NORMAL'; fi\`"
@@ -289,8 +304,6 @@ fi
 
 
 PS1="$PS1"$'\n'"`if [[ $UID = 0 ]]; then echo '#'; else echo '\$'; fi` "
-
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} echo -n \[\$(date +%H:%M:%S)\]"
 
 # Support xterm titles.
 case $TERM in

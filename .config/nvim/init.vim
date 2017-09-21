@@ -57,7 +57,7 @@ silent! colorscheme base16-solarized-dark
 
 " Override some defaults which I don't like.
 hi Search ctermfg=21 guifg=#ffffff
-hi pythonStatement ctermfg=5 guifg=#6c71c4
+hi pythonInclude ctermfg=4 guifg=#268bd2
 " XXX: https://github.com/chriskempson/base16-vim/pull/132
 hi MatchParen guifg=#002b36 guibg=#657b83 ctermfg=15 ctermbg=00
 " }}}

@@ -32,6 +32,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
+Plug 'Shougo/neoinclude.vim'
 Plug 'smerrill/vcl-vim-plugin'
 Plug 'steelsojka/deoplete-flow'
 Plug 'szw/vim-ctrlspace'
@@ -44,6 +45,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 Plug 'w0rp/ale'
+Plug 'zchee/deoplete-clang'
 Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-go'
 
@@ -138,6 +140,18 @@ let g:ale_lint_on_text_changed = 'never'
 
 " ===== deoplete ===== {{{
 let g:deoplete#enable_at_startup = 1
+" }}}
+
+
+" ===== deoplete-clang ===== {{{
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname =~? "linux"
+        let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang.so.1'
+    elseif s:uname =~? "darwin"
+        let g:deoplete#sources#clang#libclang_path = '/Applications/Xcode.app/Contents/Frameworks/libclang.dylib'
+    endif
+endif
 " }}}
 
 

@@ -260,6 +260,7 @@ else
 fi
 
 COLOR_INFO="${GREEN_BG}${BRIGHT}${WHITE}"
+COLOR_PROD="${ORANGE_BG}${BRIGHT}${WHITE}"
 
 function jobcount {
     count=$(( $(jobs | wc -l) - 1 ))
@@ -297,6 +298,8 @@ PS1="$PS1\$(__git_ps1)"
 
 if [[ $USER == "vagrant" ]]; then
     PS1="$PS1 $COLOR_INFO DEV $NORMAL"
+elif [[ -n $PROD_DOMAIN && ${HOSTNAME#*.*} == $PROD_DOMAIN ]]; then
+    PS1="$PS1 $COLOR_PROD PRODUCTION $NORMAL"
 elif [[ `hostname -d 2> /dev/null` == "ec2.internal" ]]; then
     # HACK: assuming hostnames that start with "ip-*" are EC2.
     PS1="$PS1 ${LTORANGE_BG}${BRIGHT}${WHITE} EC2 $NORMAL"

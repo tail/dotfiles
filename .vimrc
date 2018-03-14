@@ -152,6 +152,11 @@ endif
 " }}}
 
 
+" ===== jedi-vim ===== {{{
+let g:jedi#smart_auto_mappings = 0
+" }}}
+
+
 " ===== neocomplete ===== {{{
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1

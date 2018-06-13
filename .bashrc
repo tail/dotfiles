@@ -145,7 +145,10 @@ fi
 
 export EDITOR="vim --noplugin"
 export VISUAL="vim --noplugin"
-export PAGER=~/usr/bin/vimpager
+export PAGER="less"
+if [ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]; then
+    export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+fi
 export LESS=-Ri
 export HISTCONTROL='ignoreboth:erasedups'
 

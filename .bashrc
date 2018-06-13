@@ -209,7 +209,7 @@ if [ -d "$HOME/.nvm" ]; then
     # HACK: sourcing "nvm.sh" is slow.  right now we're just manually
     # specifying the version of node we're using.
     # see https://github.com/creationix/nvm/issues/860
-    export NODE_VERSION="v6.12.3"
+    export NODE_VERSION="v8.11.3"
     NODE_BIN_DIR="${NVM_DIR}/versions/node/${NODE_VERSION}/bin"
     if [ -d ${NODE_BIN_DIR} ]; then
         source ${NVM_DIR}/nvm.sh --no-use

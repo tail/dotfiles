@@ -136,6 +136,15 @@ command! -bang -nargs=* Wq wq<bang> <args>
 command! -bang -nargs=* WQ wq<bang> <args>
 " }}}
 
+" ===== neovim ===== {{{
+if !empty(glob("~/.virtualenvs/sandbox"))
+    let g:python_host_prog = glob("~/.virtualenvs/sandbox/bin/python")
+endif
+
+if !empty(glob("~/.virtualenvs/sandbox3"))
+    let g:python3_host_prog = glob("~/.virtualenvs/sandbox3/bin/python")
+endif
+" }}}
 
 " ===== ale ===== {{{
 let g:ale_lint_on_text_changed = 'never'

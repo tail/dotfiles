@@ -9,9 +9,11 @@ endfunction
 
 call plug#begin('~/.config/nvim/plugged')
 
+" TODO: base16-vim, vim-airline, and vim-airline-themes changed some colors
+" that I don't like.
 Plug 'autowitch/hive.vim'
 Plug 'carlitux/deoplete-ternjs'
-Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
 Plug 'derekwyatt/vim-scala'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'elzr/vim-json'
@@ -42,12 +44,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline', { 'commit': 'c386332' }
+Plug 'vim-airline/vim-airline-themes', { 'commit': 'a7fcf53' }
 Plug 'vim-utils/vim-husk'
 Plug 'w0rp/ale'
 Plug 'zchee/deoplete-clang'
-Plug 'zchee/deoplete-jedi'
+" XXX: c795262 seems to have broken python 2 projects?
+Plug 'zchee/deoplete-jedi', { 'commit': 'a49389d' }
 Plug 'zchee/deoplete-go'
 
 call plug#end()

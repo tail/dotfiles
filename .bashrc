@@ -5,7 +5,7 @@
 # ========================================================================
 
 case $OSTYPE in
-darwin14|darwin15|darwin16)
+darwin*)
     alias free='top -l1 -s0 | head -n 11'
     alias ls='ls -G'
 

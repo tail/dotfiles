@@ -332,6 +332,16 @@ if [ -d "$HOME/.pyenv" ]; then
     if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenv" ]; then
         eval "$(pyenv virtualenv-init -)"
     fi
+
+    # Add sandbox virtualenv to PATH last, if it exists.  This is so things like
+    # ipython/flake8 don't need to be installed globally.
+    if [ -d $HOME/.pyenv/versions/sandbox/bin/ ]; then
+        PATH=$PATH:$HOME/.pyenv/versions/sandbox/bin
+    fi
+
+    if [ -d $HOME/.pyenv/versions/sandbox3/bin/ ]; then
+        PATH=$PATH:$HOME/.pyenv/versions/sandbox3/bin
+    fi
 fi
 
 # ========================================================================
@@ -363,24 +373,6 @@ if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$AGENT_SOCK_LINK" ] ; then
     fi
 
     export SSH_AUTH_SOCK="$AGENT_SOCK_LINK"
-fi
-
-# ========================================================================
-# virtualenv
-# ========================================================================
-
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# Add sandbox virtualenv to PATH last, if it exists.  This is so things like
-# ipython/flake8 don't need to be installed globally.
-if [ -d $HOME/.virtualenvs/sandbox/bin ]; then
-    PATH=$PATH:$HOME/.virtualenvs/sandbox/bin
-fi
-
-if [ -d $HOME/.virtualenvs/sandbox3/bin ]; then
-    PATH=$PATH:$HOME/.virtualenvs/sandbox3/bin
 fi
 
 # ========================================================================

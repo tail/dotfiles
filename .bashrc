@@ -342,6 +342,18 @@ if [ -d "$HOME/.pyenv" ]; then
     if [ -d $HOME/.pyenv/versions/sandbox3/bin/ ]; then
         PATH=$PATH:$HOME/.pyenv/versions/sandbox3/bin
     fi
+
+    #
+    # workon()
+    #   convenience function to mimic virtualenvwrapper behavior.
+    #
+    function workon() {
+        if [[ $# == 0 ]]; then
+            pyenv virtualenvs
+        else
+            pyenv activate $1
+        fi
+    }
 fi
 
 # ========================================================================

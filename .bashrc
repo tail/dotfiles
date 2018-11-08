@@ -187,6 +187,12 @@ GIT_PS1_SHOWDIRTYSTATE="."
 # golang
 # ========================================================================
 
+GVER_CURRENT_VERSION="$HOME/.gver/versions/current"
+if [ -d "$GVER_CURRENT_VERSION/bin" ]; then
+    PATH="$GVER_CURRENT_VERSION/bin:$PATH"
+    export GOROOT="$GVER_CURRENT_VERSION"
+fi
+
 if [ -d "$HOME/Projects/go" ]; then
     export GOPATH="$HOME/Projects/go"
     PATH="$HOME/Projects/go/bin:$PATH"

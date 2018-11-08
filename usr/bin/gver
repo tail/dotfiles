@@ -1,0 +1,124 @@
+#!/bin/bash
+
+[ -n "$GVER_DEBUG" ] && {
+    set -x
+}
+
+GVER_ROOT="${GVER_ROOT:-$HOME/.gver}"
+CURRENT_ROOT="${HOME}/.gver/versions/current"
+
+( echo "$PATH" | grep -q "$CURRENT_ROOT/bin" ) || {
+    echo "WARNING: You must add '$CURRENT_ROOT/bin' to your PATH."
+    echo
+}
+
+function cmd_help () {
+    echo "usage: gver [command]
+
+Description:
+    gver installs Go versions without any dependencies besides Bash.
+
+Commands:
+
+    install <version>   - Installs a version of Go.
+    use <version>       - Switch to a different version.
+    ls-remote           - List available versions.
+    ls                  - List installed versoins.
+"
+}
+
+function cmd_install() {
+    # TODO: Test macOS.  Only tested on Linux.
+    # XXX: Only supports Go 1.4.3+
+
+    version=$1
+    if [ -z "$version" ]; then
+        cmd_help
+        exit 1
+    fi
+
+    os=$(uname -s | tr '[:upper:]' '[:lower:]')
+    arch=$(uname -p)
+
+    case $arch in
+        x86_64)
+            arch=amd64
+            ;;
+        i686)
+            arch=386
+            ;;
+    esac
+
+    url="https://dl.google.com/go/go${version}.${os}-${arch}.tar.gz"
+
+    # make sure version is downloadable
+    curl -If "$url" &> /dev/null
+
+    if [[ $? != 0 ]]; then
+        echo "Could not find version '$version'"
+        exit 1
+    fi
+
+    dest="$GVER_ROOT/versions/$version"
+    if [ -d "$dest" ]; then
+        echo "Version already installed ($dest)"
+        exit 1
+    fi
+
+    mkdir -p "$dest"
+    echo "Downloading..."
+    curl -L -o "$dest/_go.tar.gz" "$url"
+
+    echo "Extracting..."
+    pushd "$dest" > /dev/null
+    tar xzf _go.tar.gz --strip-components=1
+    rm _go.tar.gz
+    popd > /dev/null
+
+    echo "Installed Go $version!"
+    cmd_use $version
+}
+
+function cmd_use () {
+    version=$1
+    if [ -z "$version" ]; then
+        cmd_help
+        exit 1
+    fi
+
+    dest="$GVER_ROOT/versions/$version"
+    if [ ! -d "$dest" ]; then
+        echo "Could not find version: $version"
+        exit 1
+    fi
+
+    ln -sfn "$dest" "$CURRENT_ROOT"
+    echo "Using version: $version"
+}
+
+function cmd_ls_remote () {
+    # XXX: lol if/when they change their website.
+    ( curl "https://golang.org/dl/" | grep -oP "go(\d+\.)*src.tar.gz" | sed 's/.src.tar.gz//' | sort -V | uniq | sed 's/^go//') 2> /dev/null
+}
+
+function cmd_ls () {
+    current_version=$(basename $(readlink $CURRENT_ROOT))
+    for dir in $(ls "$GVER_ROOT/versions" | grep -v current | sort -V); do
+        echo -n "$dir"
+        if [[ "$dir" == "$current_version" ]]; then
+            echo -n ' (current)'
+        fi
+        echo
+    done
+}
+
+command="$1"
+command_func="cmd_${command/-/_}"
+
+[[ $(type -t "$command_func") != 'function' ]] && {
+    cmd_help
+    exit 1
+}
+
+shift
+$command_func "$@"

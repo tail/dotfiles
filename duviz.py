@@ -1,27 +1,12 @@
 #!/usr/bin/env python
 # coding=utf-8
-##############################################################################
-# Copyright 2009-2016 Stefaan Lippens
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-##############################################################################
 
 """
 Command line tool for visualization of the disk space usage of a directory
 and its subdirectories.
 
-Copyright: 2009-2016 Stefaan Lippens
+Copyright: 2009-2018 Stefaan Lippens
+License: MIT
 Website: http://soxofaan.github.io/duviz/
 """
 
@@ -37,7 +22,7 @@ import unicodedata
 # TODO: how to handle unreadable subdirs in du/ls?
 # TODO: option to sort alphabetically (instead of on size)
 
-##############################################################################
+
 def terminal_size():
     """
     Best effort guess of terminal size.
@@ -66,7 +51,6 @@ def terminal_size():
     return height, width
 
 
-##############################################################################
 def bar(width, label, fill='-', left='[', right=']', one='|'):
     """
     Helper function to render bar strings of certain width with a label.
@@ -89,11 +73,10 @@ def bar(width, label, fill='-', left='[', right=']', one='|'):
     elif width == 1:
         b = one
     else:
-        b = ''
+        b = u''
     return b
 
 
-##############################################################################
 def _human_readable_size(size, base, formats):
     """Helper function to render counts and sizes in a easily readable format."""
     for f in formats[:-1]:
@@ -116,7 +99,6 @@ def human_readable_count(count):
     return _human_readable_size(count, 1000, ['%d', '%.2fk', '%.2fM', '%.2fG', '%.2fT'])
 
 
-##############################################################################
 def path_split(path, base=''):
     """
     Split a file system path in a list of path components (as a recursive os.path.split()),
@@ -140,11 +122,10 @@ def path_split(path, base=''):
     return items
 
 
-##############################################################################
 class DirectoryTreeNode(object):
     """
-    Node in a directory tree, holds the name of the node, its size (including
-    subdirectories) and the subdirectories.
+    Recursive data structure corresponding with node in a directory tree.
+    Holds the name of the node, its size (including subdirectories) and the subdirectories.
     """
 
     def __init__(self, path):
@@ -154,7 +135,7 @@ class DirectoryTreeNode(object):
         # By default this is assumed to be total node size, inclusive sub nodes,
         # otherwise recalculate_own_sizes_to_total_sizes() should be called.
         self.size = None
-        # Dictionary of subnodess
+        # Dictionary of subnodes
         self._subnodes = {}
 
     def import_path(self, path, size):
@@ -237,7 +218,6 @@ class SubprocessException(Exception):
     pass
 
 
-##############################################################################
 def build_du_tree(directory, progress=None, one_filesystem=False, dereference=False):
     """
     Build a tree of DirectoryTreeNodes, starting at the given directory.
@@ -363,11 +343,9 @@ def get_progress_callback(stream=sys.stdout, interval=.2, terminal_width=80):
     return progress
 
 
-##############################################################################
 def main():
     terminal_width = terminal_size()[1]
 
-    #########################################
     # Handle commandline interface.
     import optparse
     cliparser = optparse.OptionParser(
@@ -378,35 +356,40 @@ def main():
     cliparser.add_option(
         '-w', '--width',
         action='store', type='int', dest='display_width', default=terminal_width,
-        help='total width of all bars', metavar='WIDTH')
+        help='total width of all bars', metavar='WIDTH'
+    )
     cliparser.add_option(
         '-x', '--one-file-system',
         action='store_true', dest='onefilesystem', default=False,
-        help='skip directories on different filesystems')
+        help='skip directories on different filesystems'
+    )
     cliparser.add_option(
         '-L', '--dereference',
         action='store_true', dest='dereference', default=False,
-        help='dereference all symbolic links')
+        help='dereference all symbolic links'
+    )
     cliparser.add_option(
         '--max-depth',
         action='store', type='int', dest='max_depth', default=5,
-        help='maximum recursion depth', metavar='N')
+        help='maximum recursion depth', metavar='N'
+    )
     cliparser.add_option(
         '-i', '--inodes',
         action='store_true', dest='inode_count', default=False,
-        help='count inodes instead of file size')
+        help='count inodes instead of file size'
+    )
     cliparser.add_option(
         '--no-progress',
         action='store_false', dest='show_progress', default=True,
-        help='disable progress reporting')
+        help='disable progress reporting'
+    )
 
-    (clioptions, cliargs) = cliparser.parse_args()
+    (opts, args) = cliparser.parse_args()
 
-    ########################################
     # Make sure we have a valid list of paths
-    if len(cliargs) > 0:
+    if len(args) > 0:
         paths = []
-        for path in cliargs:
+        for path in args:
             if os.path.exists(path):
                 paths.append(path)
             else:
@@ -415,21 +398,20 @@ def main():
         # Do current dir if no dirs are given.
         paths = ['.']
 
-    if clioptions.show_progress:
-        feedback = get_progress_callback(stream=sys.stdout, terminal_width=clioptions.display_width)
+    if opts.show_progress:
+        feedback = get_progress_callback(stream=sys.stdout, terminal_width=opts.display_width)
     else:
         feedback = None
 
-    if clioptions.inode_count:
+    if opts.inode_count:
         for directory in paths:
             tree = build_inode_count_tree(directory, progress=feedback)
-            print(tree.block_display(clioptions.display_width, max_depth=clioptions.max_depth,
-                                     size_renderer=human_readable_count))
+            print(tree.block_display(opts.display_width, max_depth=opts.max_depth, size_renderer=human_readable_count))
     else:
         for directory in paths:
-            tree = build_du_tree(directory, progress=feedback,
-                                 one_filesystem=clioptions.onefilesystem, dereference=clioptions.dereference)
-            print(tree.block_display(clioptions.display_width, max_depth=clioptions.max_depth))
+            tree = build_du_tree(directory, progress=feedback, one_filesystem=opts.onefilesystem,
+                                 dereference=opts.dereference)
+            print(tree.block_display(opts.display_width, max_depth=opts.max_depth))
 
 
 if __name__ == '__main__':

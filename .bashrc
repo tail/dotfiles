@@ -54,6 +54,7 @@ alias df='df -h'
 alias grep='grep --color'
 alias dstat='dstat -t -c -l -d -Dsdc -r --postgres-conn'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias sftppw="sftp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
 # Default to nvim if available.
 if [[ -x "$(command -v nvim)" ]]; then
@@ -112,6 +113,14 @@ function pyfind() { x=`python -c "import $1; print($1.__file__)" | sed 's/\.pyc$
 #   change directory to path of Python module.
 #-------------------------------------------------------------------------
 function pycd() { cd $(dirname $(pyfind $1)); }
+
+#-------------------------------------------------------------------------
+# cless()
+#   color less
+#-------------------------------------------------------------------------
+function cless () {
+    pygmentize -f terminal "$1" | less -R
+}
 
 # ========================================================================
 # android

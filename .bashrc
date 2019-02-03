@@ -30,6 +30,16 @@ linux-gnu)
 esac
 
 # ========================================================================
+# _globals
+# ========================================================================
+
+if [[ -x "$(command -v nvim)" ]]; then
+    export DEFAULT_VIM=nvim
+else
+    export DEFAULT_VIM=vim
+fi
+
+# ========================================================================
 # _local packages
 # ========================================================================
 
@@ -57,8 +67,8 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C
 alias sftppw="sftp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
 # Default to nvim if available.
-if [[ -x "$(command -v nvim)" ]]; then
-    alias vim=nvim
+if [[ "$DEFAULT_VIM" && "$DEFAULT_VIM" != "vim" ]]; then
+    alias vim="$DEFAULT_VIM"
 fi
 
 # ========================================================================
@@ -152,8 +162,8 @@ fi
 # bash
 # ========================================================================
 
-export EDITOR="vim --noplugin"
-export VISUAL="vim --noplugin"
+export EDITOR="$DEFAULT_VIM --noplugin"
+export VISUAL="$EDITOR"
 export PAGER="less"
 if [ -f "/usr/share/source-highlight/src-hilite-lesspipe.sh" ]; then
     export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"

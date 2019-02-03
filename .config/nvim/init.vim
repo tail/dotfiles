@@ -137,12 +137,12 @@ command! -bang -nargs=* WQ wq<bang> <args>
 " }}}
 
 " ===== neovim ===== {{{
-if !empty(glob("~/.virtualenvs/sandbox"))
-    let g:python_host_prog = glob("~/.virtualenvs/sandbox/bin/python")
+if !empty(glob("~/.pyenv/versions/sandbox/"))
+    let g:python_host_prog = glob("~/.pyenv/versions/sandbox/bin/python")
 endif
 
-if !empty(glob("~/.virtualenvs/sandbox3"))
-    let g:python3_host_prog = glob("~/.virtualenvs/sandbox3/bin/python")
+if !empty(glob("~/.pyenv/versions/sandbox3/"))
+    let g:python3_host_prog = glob("~/.pyenv/versions/sandbox3/bin/python")
 endif
 " }}}
 

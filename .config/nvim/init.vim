@@ -158,11 +158,17 @@ let g:deoplete#enable_at_startup = 1
 
 " ===== deoplete-clang ===== {{{
 if has("unix")
-    let s:uname = system("uname -s")
-    if s:uname =~? "linux"
-        let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang.so.1'
-    elseif s:uname =~? "darwin"
-        let g:deoplete#sources#clang#libclang_path = '/Applications/Xcode.app/Contents/Frameworks/libclang.dylib'
+    if isdirectory("/usr/lib/llvm-6.0/")
+        let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
+        let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0/lib/clang/6.0.0/include/'
+    else
+        " XXX: legacy paths.
+        let s:uname = system("uname -s")
+        if s:uname =~? "linux"
+            let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang.so.1'
+        elseif s:uname =~? "darwin"
+            let g:deoplete#sources#clang#libclang_path = '/Applications/Xcode.app/Contents/Frameworks/libclang.dylib'
+        endif
     endif
 endif
 " }}}

@@ -248,3 +248,8 @@ let g:grepper = {
 " ===== vim-jsx ===== {{{
 let g:jsx_ext_required = 0
 " }}}
+
+
+" ===== vim-terraform ===== {{{
+let g:terraform_fmt_on_save = 1
+" }}}

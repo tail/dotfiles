@@ -34,6 +34,7 @@ Plug 'mxw/vim-jsx'
 Plug 'pangloss/vim-javascript'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'sfiera/vim-emacsmodeline'
 Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
 Plug 'Shougo/neoinclude.vim'
 Plug 'smerrill/vcl-vim-plugin'
@@ -226,6 +227,16 @@ endif
 
 let g:CtrlSpaceSetDefaultMapping = 0
 nnoremap <C-space> :CtrlSpace a<CR>
+" }}}
+
+
+" ===== vim-emacsmodeline ===== {{{
+let g:emacs_modelines=1
+let g:emacsModeDict = {
+    \ 'ruby': 'ruby',
+    \ 'sls': 'sls',
+    \ 'yaml': 'yaml',
+\ }
 " }}}
 
 

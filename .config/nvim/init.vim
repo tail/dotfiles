@@ -50,8 +50,7 @@ Plug 'vim-airline/vim-airline-themes', { 'commit': 'a7fcf53' }
 Plug 'vim-utils/vim-husk'
 Plug 'w0rp/ale'
 Plug 'zchee/deoplete-clang'
-" XXX: c795262 seems to have broken python 2 projects?
-Plug 'zchee/deoplete-jedi', { 'commit': 'a49389d' }
+Plug 'zchee/deoplete-jedi'
 Plug 'zchee/deoplete-go'
 
 call plug#end()

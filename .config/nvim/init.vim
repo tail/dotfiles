@@ -39,7 +39,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
 Plug 'Shougo/neoinclude.vim'
 Plug 'smerrill/vcl-vim-plugin'
 Plug 'steelsojka/deoplete-flow'
-Plug 'szw/vim-ctrlspace'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -47,6 +46,9 @@ Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
 Plug 'vim-airline/vim-airline', { 'commit': 'c386332' }
 Plug 'vim-airline/vim-airline-themes', { 'commit': 'a7fcf53' }
+" TODO: https://github.com/vim-ctrlspace/vim-ctrlspace/pull/220 broke opening
+" multiple buffers from command line
+Plug 'vim-ctrlspace/vim-ctrlspace', {'commit': '513eb46' }
 Plug 'vim-utils/vim-husk'
 Plug 'w0rp/ale'
 Plug 'zchee/deoplete-clang'

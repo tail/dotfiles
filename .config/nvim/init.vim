@@ -39,6 +39,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
 Plug 'Shougo/neoinclude.vim'
 Plug 'smerrill/vcl-vim-plugin'
 Plug 'steelsojka/deoplete-flow'
+" forked neoterm due to https://github.com/kassio/neoterm/issues/108
+Plug 'tail/neoterm', { 'branch': 'ipython-workaround' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -113,7 +115,10 @@ map <C-l> <C-w>l:nohlsearch<CR>:redraw!<CR>:nohlsearch<CR>
 
 nmap <leader>x <Plug>CommentaryLine
 xmap <leader>x <Plug>Commentary
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" clear trailing whitespace
+nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
+" "zoom" current buffer (opens new tab with current buffer)
+nmap <leader>z :tab split<CR>
 
 " Search for selected text, forwards or backwards.
 " From: http://vim.wikia.com/wiki/Search_for_visually_selected_text
@@ -198,6 +203,14 @@ let g:tern#filetypes = [
 
 " ===== fzf ===== {{{
 map <C-p> :FZF<CR>
+" }}}
+
+
+" ===== neoterm ===== {{{
+let g:neoterm_autoscroll = 1
+let g:neoterm_auto_repl_cmd = 0
+let g:neoterm_default_mod = 'bot'
+xmap <leader>t :TREPLSendSelection<cr>
 " }}}
 
 

@@ -23,7 +23,7 @@ Commands:
     install <version>   - Installs a version of Go.
     use <version>       - Switch to a different version.
     ls-remote           - List available versions.
-    ls                  - List installed versoins.
+    ls                  - List installed versions.
 "
 }
 

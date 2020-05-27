@@ -64,6 +64,7 @@ alias df='df -h'
 alias grep='grep --color'
 alias dstat='dstat -t -c -l -d -Dsdc -r --postgres-conn'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias sshio="ssh -o IdentitiesOnly=yes"
 alias sftppw="sftp -o PreferredAuthentications=password -o PubkeyAuthentication=no"
 
 # Default to nvim if available.

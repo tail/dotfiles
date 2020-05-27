@@ -133,6 +133,18 @@ function cless () {
     pygmentize -f terminal "$1" | less -R
 }
 
+#-------------------------------------------------------------------------
+# gctags()
+#   run ctags only on files tracked in git
+#   (from https://tbaggery.com/2011/08/08/effortless-ctags-with-git.html)
+#-------------------------------------------------------------------------
+function gctags () {
+    trap 'rm -f "$$.tags"' EXIT
+    git ls-files | \
+      ctags -L - -f"$$.tags" .
+    mv "$$.tags" "tags"
+}
+
 # ========================================================================
 # android
 # ========================================================================

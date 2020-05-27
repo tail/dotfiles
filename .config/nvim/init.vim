@@ -9,36 +9,21 @@ endfunction
 
 call plug#begin('~/.config/nvim/plugged')
 
-" TODO: base16-vim, vim-airline, and vim-airline-themes changed some colors
-" that I don't like.
-Plug 'autowitch/hive.vim'
-Plug 'carlitux/deoplete-ternjs'
+" TODO: base16-vim changed some colors that I don't like.
 Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
-Plug 'derekwyatt/vim-scala'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'elzr/vim-json'
-Plug 'fatih/vim-go'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'hashivim/vim-terraform'
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf'
-Plug 'keith/swift.vim'
-Plug 'klen/python-mode'
-Plug 'majutsushi/tagbar'
+Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/vista.vim'
 Plug 'maksimr/vim-jsbeautify'
-Plug 'mhartington/nvim-typescript'
 Plug 'mhinz/vim-grepper'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'mxw/vim-jsx'
-Plug 'pangloss/vim-javascript'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sfiera/vim-emacsmodeline'
-Plug 'Shougo/deoplete.nvim', { 'do': function('UpdateRPlugin') }
-Plug 'Shougo/neoinclude.vim'
-Plug 'smerrill/vcl-vim-plugin'
-Plug 'steelsojka/deoplete-flow'
+Plug 'sheerun/vim-polyglot'
 " forked neoterm due to https://github.com/kassio/neoterm/issues/108
 Plug 'tail/neoterm', { 'branch': 'ipython-workaround' }
 Plug 'tpope/vim-commentary'
@@ -46,16 +31,23 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
-Plug 'vim-airline/vim-airline', { 'commit': 'c386332' }
-Plug 'vim-airline/vim-airline-themes', { 'commit': 'a7fcf53' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " TODO: https://github.com/vim-ctrlspace/vim-ctrlspace/pull/220 broke opening
 " multiple buffers from command line
 Plug 'vim-ctrlspace/vim-ctrlspace', {'commit': '513eb46' }
 Plug 'vim-utils/vim-husk'
-Plug 'w0rp/ale'
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/deoplete-jedi'
-Plug 'zchee/deoplete-go'
+
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 " }}}
@@ -100,8 +92,8 @@ autocmd BufNewFile,BufRead *.hql set filetype=hive
 set pastetoggle=<F2>
 map <F3> :NERDTreeTabsToggle<CR>
 map! <F3> <ESC>:NERDTreeTabsToggle<CR>a
-map <F4> :TagbarToggle<CR><C-w>l
-map! <F4> <ESC>:TagbarToggle<CR><C-w>l
+map <F4> :Vista!!<CR><C-w>l
+map! <F4> <ESC>:Vista!!<CR><C-w>l
 map <F5> oimport ipdb;ipdb.set_trace()<ESC>
 map! <F5> <ESC>iimport ipdb;ipdb.set_trace()<CR>
 
@@ -143,6 +135,7 @@ command! -bang -nargs=* Wq wq<bang> <args>
 command! -bang -nargs=* WQ wq<bang> <args>
 " }}}
 
+
 " ===== neovim ===== {{{
 if !empty(glob("~/.pyenv/versions/sandbox/"))
     let g:python_host_prog = glob("~/.pyenv/versions/sandbox/bin/python")
@@ -153,56 +146,28 @@ if !empty(glob("~/.pyenv/versions/sandbox3/"))
 endif
 " }}}
 
-" ===== ale ===== {{{
-let g:ale_lint_on_text_changed = 'never'
-" }}}
 
+" ===== coc ===== {{{
+set updatetime=300
+let g:coc_node_path = glob("~/.nvm/versions/node/") . $NODE_VERSION . "/bin/node"
+nmap <silent> gd <Plug>(coc-definition)
+set tagfunc=CocTagFunc
 
-" ===== deoplete ===== {{{
-let g:deoplete#enable_at_startup = 1
-" }}}
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-
-" ===== deoplete-clang ===== {{{
-if has("unix")
-    if isdirectory("/usr/lib/llvm-6.0/")
-        let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-6.0/lib/libclang.so.1'
-        let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0/lib/clang/6.0.0/include/'
-    else
-        " XXX: legacy paths.
-        let s:uname = system("uname -s")
-        if s:uname =~? "linux"
-            let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang.so.1'
-        elseif s:uname =~? "darwin"
-            let g:deoplete#sources#clang#libclang_path = '/Applications/Xcode.app/Contents/Frameworks/libclang.dylib'
-        endif
-    endif
-endif
-" }}}
-
-
-" ===== deoplete-flow ===== {{{
-function! StrTrim(txt)
-  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
 
-let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
-
-if g:flow_path != 'flow not found'
-  let g:deoplete#sources#flow#flow_bin = g:flow_path
-endif
-" }}}
-
-
-" ===== deoplete-ternjs ===== {{{
-let g:tern#filetypes = [
-                \ 'jsx',
-                \ ]
 " }}}
 
 
 " ===== fzf ===== {{{
-map <C-p> :FZF<CR>
+map <C-p> :GFiles<CR>
 " }}}
 
 
@@ -214,23 +179,14 @@ xmap <leader>t :TREPLSendSelection<cr>
 " }}}
 
 
-" ===== python-mode ===== {{{
-let g:pymode_folding = 0
-let g:pymode_lint = 0
-let g:pymode_options_colorcolumn = 0
-" Disable python-mode's completion which conflicts with deoplete.
-let g:pymode_rope = 0
-" }}}
-
-
 " ===== vim-airline ===== {{{
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'papercolor'
+let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-" TODO: Tagbar is REALLY slow for large files.
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+let g:airline#extensions#vista#enabled = 1
 " }}}
 
 
@@ -270,11 +226,18 @@ let g:grepper = {
 " }}}
 
 
-" ===== vim-jsx ===== {{{
+" ===== vim-polyglot ===== {{{
+
+" --- jsx ---
 let g:jsx_ext_required = 0
+
+" --- terraform ---
+let g:terraform_fmt_on_save = 1
+
 " }}}
 
 
-" ===== vim-terraform ===== {{{
-let g:terraform_fmt_on_save = 1
+" ===== vista ===== {{{
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
 " }}}

@@ -33,9 +33,6 @@ Plug 'tpope/vim-surround'
 Plug 'Valloric/ListToggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" TODO: https://github.com/vim-ctrlspace/vim-ctrlspace/pull/220 broke opening
-" multiple buffers from command line
-Plug 'vim-ctrlspace/vim-ctrlspace', {'commit': '513eb46' }
 Plug 'vim-utils/vim-husk'
 
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
@@ -168,6 +165,7 @@ endfunction
 
 " ===== fzf ===== {{{
 map <C-p> :GFiles<CR>
+nnoremap <C-space> :Buffers<CR>
 " }}}
 
 
@@ -187,16 +185,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#vista#enabled = 1
-" }}}
-
-
-" ===== vim-ctrlspace ===== {{{
-if executable("ag")
-    let g:CtrlSpaceGlobCommand = 'ag -l --hidden --nocolor -g ""'
-endif
-
-let g:CtrlSpaceSetDefaultMapping = 0
-nnoremap <C-space> :CtrlSpace a<CR>
 " }}}
 
 

@@ -36,11 +36,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
@@ -81,7 +83,7 @@ set mouse=
 
 " ===== Conditional Settings ===== {{{
 autocmd FileType yaml setlocal sw=2 sts=2
-autocmd BufNewFile,BufRead *.hql set filetype=hive
+autocmd BufWritePre *.java call CocAction('runCommand', 'java.action.organizeImports')
 " }}}
 
 

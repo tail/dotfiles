@@ -177,6 +177,28 @@ nnoremap <C-space> :Buffers<CR>
 " }}}
 
 
+" ===== ListToggle ===== {{{
+" HACK: Breaking change in coc.nvim 0.0.79 (specifically commit e7f36979) no
+" longer populates locationlist automatically, so the first time we need to
+" make sure to call CocDiagnostics.
+
+" track whether or not diagnostics were already laoded
+let g:_coc_diagnostics_loaded = 0
+" unbind default <leader>l
+let g:lt_location_list_toggle_map = '<Plug>removeDefaultLocationListToggleMap'
+
+function ToggleCocDiagnostics()
+    if g:_coc_diagnostics_loaded == 0
+        execute "CocDiagnostics"
+        let g:_coc_diagnostics_loaded = 1
+    else
+        execute "LToggle"
+    endif
+endfunction
+nnoremap <leader>l :call ToggleCocDiagnostics()<CR>
+" }}}
+
+
 " ===== neoterm ===== {{{
 let g:neoterm_autoscroll = 1
 let g:neoterm_auto_repl_cmd = 0

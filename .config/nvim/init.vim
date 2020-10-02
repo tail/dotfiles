@@ -9,6 +9,7 @@ endfunction
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'aquach/vim-http-client'
 " TODO: base16-vim changed some colors that I don't like.
 Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
 Plug 'editorconfig/editorconfig-vim'
@@ -35,8 +36,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 
+Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-post', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
@@ -150,6 +153,9 @@ endif
 set updatetime=300
 let g:coc_node_path = glob("~/.nvm/versions/node/") . $NODE_VERSION . "/bin/node"
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 set tagfunc=CocTagFunc
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>

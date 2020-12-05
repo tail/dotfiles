@@ -85,6 +85,7 @@ set mouse=
 " }}}
 
 " ===== Conditional Settings ===== {{{
+autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd BufWritePre *.java call CocAction('runCommand', 'java.action.organizeImports')
 " }}}

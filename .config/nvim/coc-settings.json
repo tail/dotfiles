@@ -1,4 +1,5 @@
 {
     "python.jediEnabled": false,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "coc.preferences.formatOnSaveFiletypes": ["go"]
 }

@@ -29,6 +29,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-post', {'do': 'yarn install --frozen-lockfile'}
@@ -39,7 +40,6 @@ Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 

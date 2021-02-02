@@ -1,12 +1,4 @@
 " ===== Plugins ===== {{{
-" From https://github.com/junegunn/vim-plug/issues/125
-function! UpdateRPlugin(info)
-    if has('nvim')
-        silent UpdateRemotePlugins
-        echomsg 'rplugin updated: ' . a:info['name'] . ', restart vim for changes'
-    endif
-endfunction
-
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'aquach/vim-http-client'
@@ -128,6 +120,12 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" tab management
+nnoremap <silent> <A-[> :tabprevious<CR>
+nnoremap <silent> <A-]> :tabnext<CR>
+nnoremap <silent> <A-{> :tabmove -1<CR>
+nnoremap <silent> <A-}> :tabmove +1<CR>
 " }}}
 
 
@@ -214,6 +212,8 @@ let g:airline_theme = 'papercolor'
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_tab_count = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:airline#extensions#vista#enabled = 1
 " }}}

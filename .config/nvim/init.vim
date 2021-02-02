@@ -13,6 +13,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mhinz/vim-grepper'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ryanoasis/vim-devicons'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sfiera/vim-emacsmodeline'

@@ -423,7 +423,7 @@ fi
 
 # Place SSH_AUTH_SOCK in a standard location.
 AGENT_SOCK_LINK="$HOME/.ssh/agent_sock"
-if [ ! -z "$SSH_AUTH_SOCK" -a "$SSH_AUTH_SOCK" != "$AGENT_SOCK_LINK" ] ; then
+if [ "$SSH_AUTH_SOCK" != "$AGENT_SOCK_LINK" ] ; then
     # If AGENT_SOCK_LINK still points to a valid agent, don't relink it.
     if [[ ! $(SSH_AUTH_SOCK=$AGENT_SOCK_LINK ssh-add -L 2>/dev/null) ]]; then
         unlink "$AGENT_SOCK_LINK" 2>/dev/null

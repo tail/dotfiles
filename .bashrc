@@ -241,19 +241,8 @@ fi
 # ========================================================================
 
 if [ -d "$HOME/.nvm" ]; then
-    export NVM_DIR=$HOME/.nvm
-    # HACK: sourcing "nvm.sh" is slow.  right now we're just manually
-    # specifying the version of node we're using.
-    # see https://github.com/creationix/nvm/issues/860
-    export NODE_VERSION="v12.16.3"
-    NODE_BIN_DIR="${NVM_DIR}/versions/node/${NODE_VERSION}/bin"
-    if [ -d ${NODE_BIN_DIR} ]; then
-        source ${NVM_DIR}/nvm.sh --no-use
-        PATH="${PATH}:${NODE_BIN_DIR}"
-    else
-        echo "WARNING: Node ${NODE_VERSION} is not installed, falling back to slow method."
-        source ${NVM_DIR}/nvm.sh
-    fi
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
 
 # ========================================================================

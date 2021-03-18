@@ -6,6 +6,7 @@ Plug 'aquach/vim-http-client'
 Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'honza/vim-snippets'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -18,6 +19,7 @@ Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sfiera/vim-emacsmodeline'
 Plug 'sheerun/vim-polyglot'
+Plug 'SirVer/ultisnips'
 " forked neoterm due to https://github.com/kassio/neoterm/issues/108
 Plug 'tail/neoterm', { 'branch': 'ipython-workaround' }
 Plug 'tpope/vim-commentary'
@@ -91,8 +93,8 @@ map <F3> :NERDTreeTabsToggle<CR>
 map! <F3> <ESC>:NERDTreeTabsToggle<CR>a
 map <F4> :Vista!!<CR><C-w>l
 map! <F4> <ESC>:Vista!!<CR><C-w>l
-map <F5> oimport ipdb;ipdb.set_trace()<ESC>
-map! <F5> <ESC>iimport ipdb;ipdb.set_trace()<CR>
+map <F5> :Snippets<CR>
+map! <F5> <ESC>:Snippets<CR>
 map <F6> :CocCommand clangd.switchSourceHeader<CR>
 map! <F6> <ESC>:CocCommand clangd.switchSourceHeader<CR>
 

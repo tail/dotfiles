@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
+Plug 'coc-extensions/coc-svelte', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
@@ -92,6 +93,8 @@ map <F4> :Vista!!<CR><C-w>l
 map! <F4> <ESC>:Vista!!<CR><C-w>l
 map <F5> oimport ipdb;ipdb.set_trace()<ESC>
 map! <F5> <ESC>iimport ipdb;ipdb.set_trace()<CR>
+map <F6> :CocCommand clangd.switchSourceHeader<CR>
+map! <F6> <ESC>:CocCommand clangd.switchSourceHeader<CR>
 
 map ,u :source ~/.config/nvim/init.vim<CR>
 imap jk <ESC>
@@ -151,7 +154,6 @@ endif
 
 " ===== coc ===== {{{
 set updatetime=300
-let g:coc_node_path = glob("~/.nvm/versions/node/") . $NODE_VERSION . "/bin/node"
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -231,13 +233,14 @@ let g:emacsModeDict = {
 
 
 " ===== vim-grepper ===== {{{
-nnoremap <leader>ag  :Grepper -nojump -tool ag -open -switch<cr>
-nnoremap <leader>*   :Grepper -nojump -tool ag -open -switch -cword<cr>
+nnoremap <leader>ag  :Grepper -nojump -tool rg -open -switch<cr>
+nnoremap <leader>rg  :Grepper -nojump -tool rg -open -switch<cr>
+nnoremap <leader>*   :Grepper -nojump -tool rg -open -switch -cword<cr>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 
 let g:grepper = {
-    \ 'tools':     ['ag', 'git', 'grep'],
+    \ 'tools':     ['rg', 'ag', 'git', 'grep'],
     \ 'open':      1,
     \ 'switch':    1,
     \ 'jump':      1,

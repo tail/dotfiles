@@ -1,6 +1,12 @@
 " ===== Plugins ===== {{{
 call plug#begin('~/.config/nvim/plugged')
 
+" TODO: indent issues with svelte, see vim-polyglot#700
+let g:polyglot_disabled = ['svelte']
+
+" ---------------
+" general plugins
+" ---------------
 Plug 'aquach/vim-http-client'
 " TODO: base16-vim changed some colors that I don't like.
 Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
@@ -31,12 +37,21 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-utils/vim-husk'
 
+" --------------
+" syntax plugins
+" --------------
+Plug 'leafOfTree/vim-svelte-plugin'
+
+" -----------
+" coc plugins
+" -----------
 Plug 'clangd/coc-clangd', {'do': 'yarn install --frozen-lockfile'}
 Plug 'coc-extensions/coc-svelte', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-pyright', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-xml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-post', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-tailwindcss', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-vimlsp', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-docker', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
@@ -46,6 +61,7 @@ Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 " }}}
@@ -84,6 +100,7 @@ set mouse=
 autocmd BufWritePre *.go :silent call CocAction('runCommand', 'editor.action.organizeImport')
 autocmd FileType yaml setlocal sw=2 sts=2
 autocmd BufWritePre *.java call CocAction('runCommand', 'java.action.organizeImports')
+autocmd FileType svelte setlocal iskeyword+=-
 " }}}
 
 
@@ -208,6 +225,11 @@ let g:neoterm_autoscroll = 1
 let g:neoterm_auto_repl_cmd = 0
 let g:neoterm_default_mod = 'bot'
 xmap <leader>t :TREPLSendSelection<cr>
+" }}}
+
+
+" ===== ultisnips ===== {{{
+autocmd FileType php UltiSnipsAddFiletypes html
 " }}}
 
 

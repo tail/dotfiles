@@ -388,6 +388,11 @@ fi
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH=$HOME/.python
 
+export POETRY_HOME=$HOME/usr/local/poetry
+if [ -d "$POETRY_HOME" ]; then
+    PATH="${POETRY_HOME}/bin:${PATH}"
+fi
+
 # ========================================================================
 # ruby
 # ========================================================================

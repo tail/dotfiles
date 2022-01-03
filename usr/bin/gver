@@ -28,7 +28,6 @@ Commands:
 }
 
 function cmd_install() {
-    # TODO: Test macOS.  Only tested on Linux.
     # XXX: Only supports Go 1.4.3+
 
     version=$1
@@ -38,7 +37,7 @@ function cmd_install() {
     fi
 
     os=$(uname -s | tr '[:upper:]' '[:lower:]')
-    arch=$(uname -p)
+    arch=$(uname -m)
 
     case $arch in
         x86_64)
@@ -98,7 +97,7 @@ function cmd_use () {
 
 function cmd_ls_remote () {
     # XXX: lol if/when they change their website.
-    ( curl "https://golang.org/dl/" | grep -oP "go(\d+\.)*src.tar.gz" | sed 's/.src.tar.gz//' | sort -V | uniq | sed 's/^go//') 2> /dev/null
+    ( curl -L "https://go.dev/dl/" | grep -oE "go(\d+\.)*src.tar.gz" | sed 's/.src.tar.gz//' | sort -V | uniq | sed 's/^go//') 2> /dev/null
 }
 
 function cmd_ls () {

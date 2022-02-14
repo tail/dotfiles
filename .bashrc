@@ -351,6 +351,7 @@ if [ -d "$HOME/.pyenv" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init --path)"
         eval "$(pyenv init - --no-rehash)"
     fi
 
@@ -360,12 +361,12 @@ if [ -d "$HOME/.pyenv" ]; then
 
     # Add sandbox virtualenv to PATH last, if it exists.  This is so things like
     # ipython/flake8 don't need to be installed globally.
-    if [ -d $HOME/.pyenv/versions/sandbox/bin/ ]; then
-        PATH=$PATH:$HOME/.pyenv/versions/sandbox/bin
-    fi
-
     if [ -d $HOME/.pyenv/versions/sandbox3/bin/ ]; then
         PATH=$PATH:$HOME/.pyenv/versions/sandbox3/bin
+    fi
+
+    if [ -d $HOME/.pyenv/versions/sandbox/bin/ ]; then
+        PATH=$PATH:$HOME/.pyenv/versions/sandbox/bin
     fi
 
     #

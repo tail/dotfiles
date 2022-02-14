@@ -20,14 +20,18 @@ Plug 'liuchengxu/vista.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mhinz/vim-grepper'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sfiera/vim-emacsmodeline'
 Plug 'sheerun/vim-polyglot'
+Plug 'sindrets/diffview.nvim'
 Plug 'SirVer/ultisnips'
 " forked neoterm due to https://github.com/kassio/neoterm/issues/108
 Plug 'tail/neoterm', { 'branch': 'ipython-workaround' }
+Plug 'tanvirtin/vgit.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -192,6 +196,18 @@ endfunction
 " }}}
 
 
+" ===== diffview.nvim ===== {{{
+lua <<EOF
+local cb = require'diffview.config'.diffview_callback
+
+require'diffview'.setup {
+  use_icons = false,
+}
+
+EOF
+" }}}}}
+
+
 " ===== fzf ===== {{{
 map <C-p> :GFiles<CR>
 nnoremap <C-space> :Buffers<CR>
@@ -230,6 +246,13 @@ xmap <leader>t :TREPLSendSelection<cr>
 
 " ===== ultisnips ===== {{{
 autocmd FileType php UltiSnipsAddFiletypes html
+" }}}
+
+
+" ===== VGit ===== {{{
+lua << EOF
+require('vgit').setup()
+EOF
 " }}}
 
 

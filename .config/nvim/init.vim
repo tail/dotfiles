@@ -1,9 +1,6 @@
 " ===== Plugins ===== {{{
 call plug#begin('~/.config/nvim/plugged')
 
-" TODO: indent issues with svelte, see vim-polyglot#700
-let g:polyglot_disabled = ['svelte']
-
 " ---------------
 " general plugins
 " ---------------
@@ -22,11 +19,11 @@ Plug 'mhinz/vim-grepper'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'sfiera/vim-emacsmodeline'
-Plug 'sheerun/vim-polyglot'
 Plug 'sindrets/diffview.nvim'
 Plug 'SirVer/ultisnips'
 " forked neoterm due to https://github.com/kassio/neoterm/issues/108
@@ -243,6 +240,35 @@ let g:neoterm_default_mod = 'bot'
 xmap <leader>t :TREPLSendSelection<cr>
 " }}}
 
+" ===== nvim-treesitter ===== {{{
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "maintained",
+
+  -- Install languages synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- List of parsers to ignore installing
+  ignore_install = { },
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- list of language that will be disabled
+    disable = { },
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+" }}}
 
 " ===== ultisnips ===== {{{
 autocmd FileType php UltiSnipsAddFiletypes html
@@ -293,17 +319,6 @@ let g:grepper = {
     \ 'jump':      1,
     \ 'next_tool': '<leader>g',
     \ }
-" }}}
-
-
-" ===== vim-polyglot ===== {{{
-
-" --- jsx ---
-let g:jsx_ext_required = 0
-
-" --- terraform ---
-let g:terraform_fmt_on_save = 1
-
 " }}}
 
 

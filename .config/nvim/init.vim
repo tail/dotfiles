@@ -9,6 +9,7 @@ Plug 'aquach/vim-http-client'
 Plug 'chriskempson/base16-vim', { 'commit': '97f2feb' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'hashivim/vim-terraform'
 Plug 'honza/vim-snippets'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'junegunn/fzf'
@@ -321,6 +322,9 @@ let g:grepper = {
     \ }
 " }}}
 
+" ===== vim-terraform ===== {{{
+let g:terraform_fmt_on_save = 1
+" }}}
 
 " ===== vista ===== {{{
 let g:vista_default_executive = 'coc'

@@ -29,7 +29,6 @@ Plug 'sindrets/diffview.nvim'
 Plug 'SirVer/ultisnips'
 " forked neoterm due to https://github.com/kassio/neoterm/issues/108
 Plug 'tail/neoterm', { 'branch': 'ipython-workaround' }
-Plug 'tanvirtin/vgit.nvim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-sensible'
@@ -273,13 +272,6 @@ EOF
 
 " ===== ultisnips ===== {{{
 autocmd FileType php UltiSnipsAddFiletypes html
-" }}}
-
-
-" ===== VGit ===== {{{
-lua << EOF
-require('vgit').setup()
-EOF
 " }}}
 
 

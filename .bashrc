@@ -6,12 +6,17 @@
 
 case $OSTYPE in
 darwin*)
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+
     alias free='top -l1 -s0 | head -n 11'
     alias ls='ls -G'
 
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-        . $(brew --prefix)/etc/bash_completion
+    if [ -d /opt/homebrew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
+
+    [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+    [[ -r "/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" ]] && source "/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh"
 ;;
 linux-gnu)
     alias ls='ls --color'
@@ -243,6 +248,7 @@ fi
 if [ -d "$HOME/.nvm" ]; then
     export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 
 # ========================================================================

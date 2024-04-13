@@ -65,6 +65,7 @@ fi
 # aliases
 # ========================================================================
 
+alias astronvim='NVIM_APPNAME=astronvim nvim'
 alias df='df -h'
 alias grep='grep --color'
 alias dstat='dstat -t -c -l -d -Dsdc -r --postgres-conn'
@@ -412,8 +413,8 @@ fi
 # rust
 # ========================================================================
 
-if [ -d $HOME/.cargo ]; then
-    export PATH="$HOME/.cargo/bin:$PATH"
+if [ -f $HOME/.cargo/env ]; then
+    . "$HOME/.cargo/env"
 fi
 
 # ========================================================================

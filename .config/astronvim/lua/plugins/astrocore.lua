@@ -10,7 +10,10 @@ return {
   opts = {
     options = {
       opt = {
+        clipboard = "",
+        mouse = "",
         relativenumber = false,
+        exrc = true,
       },
     },
 
@@ -23,7 +26,13 @@ return {
         ["<A-]>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["<A-{>"] = { function() require("astrocore.buffer").move(-vim.v.count1) end, desc = "Previous buffer" },
         ["<A-}>"] = { function() require("astrocore.buffer").move(vim.v.count1) end, desc = "Next buffer" },
-        ["<Leader><Leader>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+        ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+        ["<Leader><Leader>"] = { function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
+        ["<Leader>fs"] = {
+          function() require("telescope.builtin").lsp_dynamic_workspace_symbols() end,
+          desc = "Search LSP workspace symbols",
+        },
+        ["<C-space>"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
         ["<C-/>"] = {
           function() require("Comment.api").toggle.linewise.count(vim.v.count1) end,
           desc = "Toggle comment line",

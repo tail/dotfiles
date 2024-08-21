@@ -37,6 +37,13 @@ return {
           function() require("Comment.api").toggle.linewise.count(vim.v.count1) end,
           desc = "Toggle comment line",
         },
+        ["<Leader>*"] = { function() require("telescope.builtin").grep_string() end, desc = "Find word under cursor or selection" },
+      },
+
+      -- visual mode mappings
+      v = {
+        ["<Leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find word under cursor or selection" },
+        ["<Leader>*"] = { function() require("telescope.builtin").grep_string() end, desc = "Find word under cursor or selection" },
       },
     },
 

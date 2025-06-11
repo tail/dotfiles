@@ -105,7 +105,6 @@ autocmd FileType svelte setlocal iskeyword+=-
 
 
 " ===== Keybindings ===== {{{
-set pastetoggle=<F2>
 map <F3> :NERDTreeTabsToggle<CR>
 map! <F3> <ESC>:NERDTreeTabsToggle<CR>a
 map <F4> :Vista!!<CR><C-w>l

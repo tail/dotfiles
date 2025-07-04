@@ -12,5 +12,6 @@
 			"initializationOptions": {},
 			"settings": {}
         }
-    }
+    },
+    "inlayHint.enable": false
 }

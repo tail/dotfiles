@@ -35,6 +35,14 @@ linux-gnu)
 esac
 
 # ========================================================================
+# _mise
+# ========================================================================
+
+if [[ -x "$(command -v mise)" ]]; then
+    eval "$(mise activate bash)"
+fi
+
+# ========================================================================
 # _globals
 # ========================================================================
 
@@ -50,16 +58,6 @@ fi
 
 PATH=/usr/local/bin:/usr/local/sbin:$PATH:~/usr/bin
 for x in `find $HOME/usr/local -maxdepth 1 | grep -v "\(bin\|include\|lib\|share\|src\)"`; do PATH=$PATH:$x/bin; done
-
-# ========================================================================
-# _linuxbrew
-# ========================================================================
-
-if [ -d "$HOME/.linuxbrew" ]; then
-    PATH="$HOME/.linuxbrew/bin:$PATH"
-    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-fi
 
 # ========================================================================
 # aliases
@@ -191,15 +189,6 @@ export LESS=-Ri
 export HISTCONTROL='ignoreboth:erasedups'
 
 # ========================================================================
-# curl
-# ========================================================================
-
-# HACK: linuxbrew version of curl doesn't have certs?
-if [[ $(which curl) == "$HOME/.linuxbrew/bin/curl" ]]; then
-    export CURL_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-fi
-
-# ========================================================================
 # dircolors
 # ========================================================================
 
@@ -232,22 +221,6 @@ fi
 if [ -d "$HOME/Projects/go" ]; then
     export GOPATH="$HOME/Projects/go"
     PATH="$HOME/Projects/go/bin:$PATH"
-fi
-
-# ========================================================================
-# minimesos
-# ========================================================================
-
-if [ -d "$HOME/.minimesos" ]; then
-    PATH=$PATH:$HOME/.minimesos/bin
-fi
-
-# ========================================================================
-# mise
-# ========================================================================
-
-if [[ -x "$(command -v mise)" ]]; then
-    eval "$(mise activate bash)"
 fi
 
 # ========================================================================
@@ -359,45 +332,6 @@ case $TERM in
 esac
 
 # ========================================================================
-# pyenv
-# ========================================================================
-
-if [ -d "$HOME/.pyenv" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv 1>/dev/null 2>&1; then
-        eval "$(pyenv init --path)"
-        eval "$(pyenv init - --no-rehash)"
-    fi
-
-    if [ -d "$HOME/.pyenv/plugins/pyenv-virtualenv" ]; then
-        eval "$(pyenv virtualenv-init -)"
-    fi
-
-    # Add sandbox virtualenv to PATH last, if it exists.  This is so things like
-    # ipython/flake8 don't need to be installed globally.
-    if [ -d $HOME/.pyenv/versions/sandbox3/bin/ ]; then
-        PATH=$PATH:$HOME/.pyenv/versions/sandbox3/bin
-    fi
-
-    if [ -d $HOME/.pyenv/versions/sandbox/bin/ ]; then
-        PATH=$PATH:$HOME/.pyenv/versions/sandbox/bin
-    fi
-
-    #
-    # workon()
-    #   convenience function to mimic virtualenvwrapper behavior.
-    #
-    function workon() {
-        if [[ $# == 0 ]]; then
-            pyenv virtualenvs
-        else
-            pyenv activate $1
-        fi
-    }
-fi
-
-# ========================================================================
 # python
 # ========================================================================
 
@@ -444,8 +378,10 @@ AGENT_SOCK_LINK="$HOME/.ssh/agent_sock"
 if [ "$SSH_AUTH_SOCK" != "$AGENT_SOCK_LINK" ] ; then
     # If AGENT_SOCK_LINK still points to a valid agent, don't relink it.
     if [[ ! $(SSH_AUTH_SOCK=$AGENT_SOCK_LINK ssh-add -L 2>/dev/null) ]]; then
-        unlink "$AGENT_SOCK_LINK" 2>/dev/null
-        ln -s "$SSH_AUTH_SOCK" "$AGENT_SOCK_LINK"
+        # Remove existing symlink if it exists, ignore errors if it doesn't
+        [ -L "$AGENT_SOCK_LINK" ] && rm -f "$AGENT_SOCK_LINK"
+        # Create new symlink
+        ln -s "$SSH_AUTH_SOCK" "$AGENT_SOCK_LINK" 2>/dev/null || true
     fi
 
     export SSH_AUTH_SOCK="$AGENT_SOCK_LINK"

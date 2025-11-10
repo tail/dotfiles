@@ -18,6 +18,9 @@
 [branch "master"]
     rebase = true
 
+[branch "main"]
+    rebase = true
+
 [push]
     default = tracking
 

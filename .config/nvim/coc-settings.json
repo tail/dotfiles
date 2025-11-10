@@ -1,5 +1,4 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["go"],
     "python.linting.flake8Enabled": true,
     "languageserver": {
         "terraform": {

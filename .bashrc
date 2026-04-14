@@ -218,9 +218,8 @@ if [ -d "$GVER_CURRENT_VERSION/bin" ]; then
     export GOROOT="$GVER_CURRENT_VERSION"
 fi
 
-if [ -d "$HOME/Projects/go" ]; then
-    export GOPATH="$HOME/Projects/go"
-    PATH="$HOME/Projects/go/bin:$PATH"
+if [ -d "$HOME/go/bin" ]; then
+    PATH="$HOME/go/bin:$PATH"
 fi
 
 # ========================================================================

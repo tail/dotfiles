@@ -279,9 +279,10 @@ COLOR_INFO="${GREEN_BG}${BRIGHT}${WHITE}"
 COLOR_PROD="${ORANGE_BG}${BRIGHT}${WHITE}"
 
 function jobcount {
-    count=$(( $(jobs | wc -l) - 1 ))
-    if [[ $count != 0 ]]; then
-        echo -n "($count)"
+    local count
+    count=$(jobs -p 2>/dev/null | awk 'END { print NR + 0 }')
+    if (( count > 0 )); then
+        printf '(%d)' "$count"
     fi
 }
 
